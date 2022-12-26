@@ -14,13 +14,18 @@ node {
     stage('Build image') {
        sh 'pwd'
        sh 'ls'
-       sh 'go build -o gogs'
-      
+        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        // Output will be something like "go version go1.19 darwin/arm64
+        sh 'go build -o gogs'
+        } 
     }
     stage('test image') {
        sh 'pwd'
        sh 'ls'
-       sh 'go test ./...'
+       withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        // Output will be something like "go version go1.19 darwin/arm64
+        sh 'go test ./...'
+        } 
     }
 
 
