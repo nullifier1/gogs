@@ -10,7 +10,6 @@ node {
     stage('Build image') {
        sh 'pwd'
        sh 'ls'
-       sh 'cd gogs'
        sh 'go build -o gogs'
       
     }
