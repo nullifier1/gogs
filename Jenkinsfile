@@ -1,6 +1,6 @@
 node {
     def app
-
+    tools { go '1.19' }
     stage('Clone repository') {
       
 
