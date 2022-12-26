@@ -10,6 +10,7 @@ node {
     stage('Build image') {
        sh 'pwd'
        sh 'ls'
+       sh 'export PATH=$PATH:/usr/local/go/bin'
        sh 'go build -o gogs'
       
     }
