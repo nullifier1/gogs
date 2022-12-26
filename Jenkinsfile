@@ -1,6 +1,10 @@
 node {
     def app
-    tools { go '1.19' }
+    def root = tool type: 'go', name: '1.19.4'
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        // Output will be something like "go version go1.19 darwin/arm64"
+        sh 'go version'
+    }
     stage('Clone repository') {
       
 
