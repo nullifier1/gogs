@@ -1,6 +1,6 @@
 node {
     def app
-    def root = tool type: 'go', name: '1.19.4'
+    def root = tool type: 'go'
     stage('Clone repository') {
       
 
