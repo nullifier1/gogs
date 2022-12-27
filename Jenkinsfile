@@ -5,25 +5,25 @@ node {
         // Output will be something like "go version go1.19 darwin/arm64"
         sh 'go version'
     }
-    stage('Clone repository') {
+    stage('clone repository') {
       
 
         checkout scm
     }
 
-    stage('Build image') {
+    stage('build binary') {
         withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         sh 'go build -o gogs'
         } 
     }
-    stage('test image') {
+    stage('unit tests') {
        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         sh 'go test ./...'
         } 
     }
 
 
-    stage('Deploy') {
+    stage('deploy') {
         sh "ssh vagrant@192.168.13.109 rm -rf /home/vagrant/gogs/*"
         sh 'ssh vagrant@192.168.13.109 mkdir -p /home/vagrant/gogs/custom/conf'
         sh "scp gogs vagrant@192.168.13.109:/home/vagrant/gogs/"
