@@ -33,4 +33,3 @@ node {
         sh "scp custom vagrant@192.168.13.109:/home/vagrant/gogs/*"   
         }
     }
-}
