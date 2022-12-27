@@ -15,7 +15,6 @@ node {
        sh 'pwd'
        sh 'ls'
         withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-        // Output will be something like "go version go1.19 darwin/arm64
         sh 'go build -o gogs'
         } 
     }
@@ -23,21 +22,15 @@ node {
        sh 'pwd'
        sh 'ls'
        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-        // Output will be something like "go version go1.19 darwin/arm64
         sh 'go test ./...'
         } 
     }
 
 
-    stage('Push image') {
-        app = docker.build("infinityofcore/test")
-        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-            app.push("${env.BUILD_NUMBER}")
+    stage('Deploy') {
+        sh "ssh vagrant@192.168.13.109 rm -rf /home/vagrant/gogs/*"
+        sh "scp gogs vagrant@192.168.13.109:/home/vagrant/gogs/*"
+        sh "scp custom vagrant@192.168.13.109:/home/vagrant/gogs/*"   
         }
     }
-    
-    stage('Trigger ManifestUpdate') {
-                echo "triggering updatemanifestjob"
-                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-        }
 }
