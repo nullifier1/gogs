@@ -29,7 +29,9 @@ node {
 
     stage('Deploy') {
         sh "ssh vagrant@192.168.13.109 rm -rf /home/vagrant/gogs/*"
-        sh "scp gogs vagrant@192.168.13.109:/home/vagrant/gogs/*"
-        sh "scp custom vagrant@192.168.13.109:/home/vagrant/gogs/*"   
+        sh 'pwd'
+        sh 'ls'
+        sh "scp gogs vagrant@192.168.13.109:/home/vagrant/gogs/"
+        sh "scp custom vagrant@192.168.13.109:/home/vagrant/gogs/"   
         }
     }
