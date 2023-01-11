@@ -12,7 +12,7 @@ node {
     }
 
     stage('build binary') {
-        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin", "CGO_ENABLED=0"]) {
         sh 'go build -o gogs'
         } 
     }
