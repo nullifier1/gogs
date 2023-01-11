@@ -24,16 +24,16 @@ node("agent01") {
 
 
     stage('deploy') {
-        sh "ssh ssa@10.26.0.140 rm -rf /home/ssa/*"
-        sh 'ssh ssa@10.26.0.140 mkdir -p /home/ssa/custom/conf'
-        sh "scp gogs ssa@10.26.0.140:/home/ssa/"
-        sh "scp custom/conf/app.ini ssa@10.26.0.140:/home/ssa/custom/conf" 
-        sh 'ssh ssa@10.26.0.140 /home/ssa/gogs web > /dev/null 2>&1 & '
+        sh "ssh ssa@10.26.0.140 rm -rf /home/ssa/gogs/*"
+        sh 'ssh ssa@10.26.0.140 mkdir -p /home/ssa/gogs/custom/conf'
+        sh "scp gogs ssa@10.26.0.140:/home/ssa/gogs"
+        sh "scp custom/conf/app.ini ssa@10.26.0.140:/home/ssa/gogs/custom/conf" 
+        sh 'ssh ssa@10.26.0.140 /home/ssa/gogs/gogs web > /dev/null 2>&1 & '
 
-        sh "ssh ssa@10.26.0.87 rm -rf /home/ssa/*"
-        sh 'ssh ssa@10.26.0.87 mkdir -p /home/ssa/custom/conf'
-        sh "scp gogs ssa@10.26.0.87:/home/ssa/"
-        sh "scp custom/conf/app.ini ssa@10.26.0.87:/home/ssa/custom/conf" 
-        sh 'ssh ssa@10.26.0.87 /home/ssa/gogs web > /dev/null 2>&1 & '
+        sh "ssh ssa@10.26.0.87 rm -rf /home/ssa/gogs*"
+        sh 'ssh ssa@10.26.0.87 mkdir -p /home/ssa/gogs/custom/conf'
+        sh "scp gogs ssa@10.26.0.87:/home/ssa/gogs"
+        sh "scp custom/conf/app.ini ssa@10.26.0.87:/home/ssa/gogs/custom/conf" 
+        sh 'ssh ssa@10.26.0.87 /home/ssa/gogs/gogs web > /dev/null 2>&1 & '
         }
     }
