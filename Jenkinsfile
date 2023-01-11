@@ -30,8 +30,8 @@ node("agent01") {
         sh "scp custom/conf/app.ini jenkins@10.26.0.140:/home/jenkins/gogs/custom/conf" 
         sh 'ssh jenkins@10.26.0.140 /home/jenkins/gogs/gogs web > /dev/null 2>&1 & '
 
-        sh "ssh jenkins@10.26.0.87 rm -rf /home/ssa/gogs*"
-        sh 'ssh jenkins@10.26.0.87 mkdir -p /home/ssa/gogs/custom/conf'
+        sh "ssh jenkins@10.26.0.87 rm -rf /home/jenkins/gogs*"
+        sh 'ssh jenkins@10.26.0.87 mkdir -p /home/jenkins/gogs/custom/conf'
         sh "scp gogs jenkins@10.26.0.87:/home/jenkins/gogs"
         sh "scp custom/conf/app.ini jenkins@10.26.0.87:/home/jenkins/gogs/custom/conf" 
         sh 'ssh jenkins@10.26.0.87 /home/jenkins/gogs/gogs web > /dev/null 2>&1 & '
