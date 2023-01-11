@@ -24,16 +24,16 @@ node("agent01") {
 
 
     stage('deploy') {
-        sh "ssh vagrant@192.168.13.109 rm -rf /home/vagrant/gogs/*"
-        sh 'ssh vagrant@192.168.13.109 mkdir -p /home/vagrant/gogs/custom/conf'
-        sh "scp gogs vagrant@192.168.13.109:/home/vagrant/gogs/"
-        sh "scp custom/conf/app.ini vagrant@192.168.13.109:/home/vagrant/gogs/custom/conf" 
-        sh 'ssh vagrant@192.168.13.109 /home/vagrant/gogs/gogs web > /dev/null 2>&1 & '
+        sh "ssh ssa@10.26.0.140 rm -rf /home/ssa/*"
+        sh 'ssh ssa@10.26.0.140 mkdir -p /home/ssa/custom/conf'
+        sh "scp gogs ssa@10.26.0.140:/home/ssa/"
+        sh "scp custom/conf/app.ini ssa@10.26.0.140:/home/ssa/custom/conf" 
+        sh 'ssh ssa@10.26.0.140 /home/ssa/gogs web > /dev/null 2>&1 & '
 
-        sh "ssh vagrant@192.168.13.108 rm -rf /home/vagrant/gogs/*"
-        sh 'ssh vagrant@192.168.13.108 mkdir -p /home/vagrant/gogs/custom/conf'
-        sh "scp gogs vagrant@192.168.13.108:/home/vagrant/gogs/"
-        sh "scp custom/conf/app.ini vagrant@192.168.13.108:/home/vagrant/gogs/custom/conf" 
-        sh 'ssh vagrant@192.168.13.108 /home/vagrant/gogs/gogs web > /dev/null 2>&1 & '
+        sh "ssh ssa@10.26.0.87 rm -rf /home/ssa/*"
+        sh 'ssh ssa@10.26.0.87 mkdir -p /home/ssa/custom/conf'
+        sh "scp gogs ssa@10.26.0.87:/home/ssa/"
+        sh "scp custom/conf/app.ini ssa@10.26.0.87:/home/ssa/custom/conf" 
+        sh 'ssh ssa@10.26.0.87 /home/ssa/gogs web > /dev/null 2>&1 & '
         }
     }
