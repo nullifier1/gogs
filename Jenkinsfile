@@ -26,10 +26,8 @@ node("agent01") {
     stage('deploy') {
         sh "ssh jenkins@10.26.0.57 rm -rf /home/jenkins/gogs/gogs"
         sh "scp gogs jenkins@10.26.0.57:/home/jenkins/gogs/gogs"
-        sh 'ssh jenkins@10.26.0.57 /home/jenkins/gogs/gogs web > /dev/null 2>&1 & '
 
         sh "ssh jenkins@10.26.0.71 rm -rf /home/jenkins/gogs/gogs"
         sh "scp gogs jenkins@10.26.0.71:/home/jenkins/gogs/gogs"
-        sh 'ssh jenkins@10.26.0.71 /home/jenkins/gogs/gogs web > /dev/null 2>&1 & '
         }
     }
