@@ -3,4 +3,4 @@ WORKDIR /app
 COPY gogs .
 WORKDIR /app/custom/conf/
 COPY custom/conf/app.ini .
-CMD ["sleep","3200"]
+CMD ["sleep","320"]
