@@ -1,33 +1,41 @@
-node("agent01") {
+node {
     def app
     def root = tool type: 'go', name: '1.19.4'
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         // Output will be something like "go version go1.19 darwin/arm64"
         sh 'go version'
     }
-    stage('clone repository') {
+    stage('Clone repository') {
       
 
         checkout scm
     }
 
-    stage('build binary') {
+    stage('Build image') {
+       sh 'pwd'
+       sh 'ls'
         withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin", "CGO_ENABLED=0"]) {
         sh 'go build -o gogs'
         } 
     }
-    stage('unit tests') {
-       withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+    stage('test image') {
+       sh 'pwd'
+       sh 'ls'
+       withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin", "CGO_ENABLED=0"]) {
         sh 'go test ./...'
         } 
     }
 
 
-    stage('deploy') {
-        sh "ssh jenkins@10.26.0.57 rm -rf /home/jenkins/gogs/gogs"
-        sh "scp gogs jenkins@10.26.0.57:/home/jenkins/gogs/gogs"
-
-        sh "ssh jenkins@10.26.0.71 rm -rf /home/jenkins/gogs/gogs"
-        sh "scp gogs jenkins@10.26.0.71:/home/jenkins/gogs/gogs"
+    stage('Push Image') {
+        app = docker.build("infinityofcore/testgogs")
+        docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+            app.push("${env.BUILD_NUMBER}")
         }
     }
+    
+    stage('Trigger ManifestUpdate') {
+                echo "triggering updatemanifestjob"
+                build job: 'updatemanifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+        }
+}
