@@ -21,7 +21,7 @@ node {
     stage('test image') {
        sh 'pwd'
        sh 'ls'
-       withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin", "CGO_ENABLED=0"]) {
+       withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         sh 'go test ./...'
         } 
     }
