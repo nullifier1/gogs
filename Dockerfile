@@ -12,7 +12,7 @@ RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.17/main/ > /etc/ap
      socat \
      tzdata \
      rsync \
-     docker
-USER root
-RUN dockerd
+     docker \
+     sudo
+RUN sudo dockerd
 ENV GOCACHE /tmp/
