@@ -13,7 +13,7 @@ pipeline {
         sh '''
           export CGO_ENABLED=0
           echo "go build -o gogs"
-          sudo dockerd
+          rc-update add docker boot
         '''
       }
     }
