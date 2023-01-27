@@ -20,13 +20,13 @@ pipeline {
       }
     }
     stage('Build Image') {
-      agent master
+      agent any
         steps {
             sh 'docker build -t infinityofcore/testgogs:$BUILD_NUMBER build.Dockerfile'
       }
     }
     stage('Push Image') {
-      agent master
+      agent any
         steps {
             withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_HUB_PWD', usernameVariable: 'DOCKER_HUB_USER')]) {
                 sh "docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD"
