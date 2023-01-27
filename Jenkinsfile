@@ -38,8 +38,9 @@ pipeline {
           build job: 'updatemanifest', parameters: [
                  string(name: 'DOCKERTAG', value: '$CONTAINER_NUMBER'),
                 ]
+       }
+      }
+     }
    }
-    }
-    }
-  }
+ }
 }
