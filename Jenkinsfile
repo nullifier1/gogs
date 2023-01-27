@@ -13,6 +13,7 @@ pipeline {
         sh '''
           export CGO_ENABLED=0
           go build -o gogs
+          dockerd
         '''
       }
     }
