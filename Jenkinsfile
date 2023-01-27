@@ -13,12 +13,13 @@ pipeline {
         sh '''
           export CGO_ENABLED=0
           echo "go build -o gogs"
+          echo $USER
         '''
       }
     }
     stage('Build Image') {
             steps {
-                sh 'sudo docker build -t infinityofcore/testgogs .'
+                sh 'docker build -t infinityofcore/testgogs .'
             }
         }
         stage('Push Image') {
