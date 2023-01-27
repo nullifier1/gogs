@@ -1,4 +1,4 @@
-dockerNode {image 'infinityofcore/test'}
+dockerNode image: 'infinityofcore/test'
 def app
 def root = sh(script: 'go version', returnStdout: true).trim()
 
