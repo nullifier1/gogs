@@ -13,8 +13,6 @@ RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.17/main/ > /etc/ap
      tzdata \
      rsync \
      docker \
-     sudo \
-     setfacl
+     sudo 
 ENV GOCACHE /tmp/
 VOLUME /var/run/docker.sock
-RUN sudo setfacl --modify user:jenkins:rw /var/run/docker.sock
