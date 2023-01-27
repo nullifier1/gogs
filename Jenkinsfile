@@ -1,7 +1,5 @@
 pipeline {
-  agent {
-    docker { image 'infinityofcore/test' }
-  }
+  agent { dockerfile true }
   stages {
     stage('Test') {
       steps {
