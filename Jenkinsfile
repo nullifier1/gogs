@@ -1,12 +1,6 @@
 pipeline {
   agent { dockerfile true }
   stages {
-    def app
-    def root = tool type: 'go', name: '1.19.4'
-    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-        // Output will be something like "go version go1.19 darwin/arm64"
-        sh 'go version'
-    }
     stage('Clone repository') {
       
 
@@ -14,11 +8,13 @@ pipeline {
     }
 
     stage('Build image') {
+
        sh 'pwd'
        sh 'ls'
         withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin", "CGO_ENABLED=0"]) {
         sh 'go build -o gogs'
-        } 
+        
+      }
     }
     stage('test image') {
        sh 'pwd'
