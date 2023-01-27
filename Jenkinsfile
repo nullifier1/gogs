@@ -22,7 +22,7 @@ pipeline {
     stage('Build Image') {
       agent any
         steps {
-            sh 'docker build -t infinityofcore/testgogs:$BUILD_NUMBER build.Dockerfile .'
+            sh 'docker build -f build.Dockerfile -t infinityofcore/testgogs:$BUILD_NUMBER .'
       }
     }
     stage('Push Image') {
