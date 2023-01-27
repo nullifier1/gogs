@@ -12,15 +12,14 @@ pipeline {
       steps {
         sh '''
           export CGO_ENABLED=0
-          go build -o gogs
-          pwd
+          echo "go build -o gogs"
         '''
       }
     }
      stage('Trigger Other Pipeline') {
          steps {
              build job: 'updatemanifest', parameters: [
-                 string(name: 'DOCKERTAG', value: '${env.BUILD_NUMBER}'),
+                 string(name: 'DOCKERTAG', value: ${env.BUILD_NUMBER}),
                 ]
 }
 }
