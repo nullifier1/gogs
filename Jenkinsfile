@@ -33,7 +33,10 @@ pipeline {
                 sh "docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD"
                 sh 'docker push infinityofcore/testgogs'
             }
+        }
+    }
     stage('Trigger Other Pipeline') {
+      agent any
        steps {
           build job: 'updatemanifest', parameters: [
                  string(name: 'DOCKERTAG', value: '$CONTAINER_NUMBER'),
@@ -42,5 +45,4 @@ pipeline {
       }
      }
    }
- }
-}
+
