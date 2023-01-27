@@ -1,4 +1,4 @@
-dockerNode(infinityofcore/test) {
+dockerNode(image: 'infinityofcore/test') {
     def app
     def root = tool type: 'go', name: '1.19.4'
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
