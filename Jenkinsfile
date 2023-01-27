@@ -1,7 +1,8 @@
 pipeline {
-  agent { dockerfile true }
+  agent none
   stages {
     stage('Test') {
+      agent { dockerfile true}
       steps {
         sh '''
           echo "go test ./..."
@@ -9,6 +10,7 @@ pipeline {
       }
     }
     stage('build') {
+      agent { dockerfile true}
       steps {
         sh '''
           export CGO_ENABLED=0
@@ -17,10 +19,20 @@ pipeline {
         '''
       }
     }
-     stage('Trigger Other Pipeline') {
-         steps {
-             build job: 'buildsendimage'
-}
-}
-}
+    stage('Build Image') {
+      agent master
+        steps {
+            sh 'docker build -t infinityofcore/testgogs:$BUILD_NUMBER build.Dockerfile'
+      }
+    }
+    stage('Push Image') {
+      agent master
+        steps {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_HUB_PWD', usernameVariable: 'DOCKER_HUB_USER')]) {
+                sh "docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD"
+                sh 'docker push infinityofcore/testgogs'
+            }
+        }
+    }
+  }
 }
