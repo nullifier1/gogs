@@ -5,7 +5,7 @@ pipeline {
       agent { dockerfile true}
       steps {
         sh '''
-          echo "go test ./..."
+          go test ./...
         '''
       }
     }
@@ -14,8 +14,7 @@ pipeline {
       steps {
         sh '''
           export CGO_ENABLED=0
-          echo "go build -o gogs"
-          echo $BUILD_NUMBER
+          go build -o gogs
         '''
       }
     }
@@ -23,6 +22,8 @@ pipeline {
       agent any
         steps {
             sh 'docker build -f build.Dockerfile -t infinityofcore/testgogs:$BUILD_NUMBER .'
+            sh 'export CONTAINER_NUMBER=$BUILD_NUMBER'
+            sh 'echo $CONTAINER_NUMBER'
       }
     }
     stage('Push Image') {
@@ -32,7 +33,13 @@ pipeline {
                 sh "docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PWD"
                 sh 'docker push infinityofcore/testgogs'
             }
-        }
+    stage('Trigger Other Pipeline') {
+       steps {
+          build job: 'updatemanifest', parameters: [
+                 string(name: 'DOCKERTAG', value: '$CONTAINER_NUMBER'),
+                ]
+   }
+    }
     }
   }
 }
