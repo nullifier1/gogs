@@ -19,9 +19,7 @@ pipeline {
     }
      stage('Trigger Other Pipeline') {
          steps {
-             build job: 'updatemanifest', parameters: [
-                 string(name: 'DOCKERTAG', value: '$BUILD_NUMBER'),
-                ]
+             build job: 'buildsendimage'
 }
 }
 }
