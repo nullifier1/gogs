@@ -1,4 +1,5 @@
 pipeline {
+  def app
   agent { dockerfile true }
   stages {
     stage('Test') {
@@ -16,12 +17,11 @@ pipeline {
         '''
       }
     }
-    stage('make image') {
-      steps {
-        sh '''
-          ls
-        '''
-      }
+    stage('Push Image') {
+      app = docker.build("infinityofcore/test")
+      docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+        app.push("${env.BUILD_NUMBER}")
+    }
     }
   }
 }
