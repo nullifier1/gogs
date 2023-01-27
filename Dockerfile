@@ -16,4 +16,4 @@ RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.17/main/ > /etc/ap
      sudo
 ENV GOCACHE /tmp/
 VOLUME /var/run/docker.sock
-ENTRYPOINT groupmod -g $(stat -c “%g” /var/run/docker.sock) docker && usermod -u $(stat -c “%u” /var/jenkins_home) jenkins && gosu jenkins /bin/tini – /usr/local/bin/jenkins.sh
+RUN chmod 777 /var/run/docker.sock
