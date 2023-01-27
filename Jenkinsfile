@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Build Image') {
             steps {
-                sh 'sudo docker build -t infinityofcore/testgogs .'
+                sh 'docker build -t infinityofcore/testgogs .'
             }
         }
         stage('Push Image') {
