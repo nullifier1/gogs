@@ -20,7 +20,7 @@ pipeline {
      stage('Trigger Other Pipeline') {
          steps {
              build job: 'updatemanifest', parameters: [
-                 string(name: 'DOCKERTAG', value: 'env.BUILD_NUMBER'),
+                 string(name: 'DOCKERTAG', value: '${env.BUILD_NUMBER}'),
                 ]
 }
 }
