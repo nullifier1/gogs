@@ -6,6 +6,8 @@ pipeline {
         sh '''
           go version
           git --version
+          ls
+          pwd
         '''
       }
     }
