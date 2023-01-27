@@ -4,7 +4,6 @@ pipeline {
     stage('Test') {
       steps {
         sh '''
-          su 0
           echo "go test ./..."
         '''
       }
