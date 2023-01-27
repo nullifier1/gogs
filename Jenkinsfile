@@ -23,7 +23,6 @@ pipeline {
         steps {
             sh 'docker build -f build.Dockerfile -t infinityofcore/testgogs:$BUILD_NUMBER .'
             sh 'export CONTAINER_NUMBER=$BUILD_NUMBER'
-            sh 'echo $CONTAINER_NUMBER'
       }
     }
     stage('Push Image') {
@@ -38,6 +37,7 @@ pipeline {
     stage('Trigger Other Pipeline') {
       agent any
        steps {
+          sh 'export CONTAINER_NUMBER=$BUILD_NUMBER'
           build job: 'updatemanifest', parameters: [
                  string(name: 'DOCKERTAG', value: '$CONTAINER_NUMBER'),
                 ]
