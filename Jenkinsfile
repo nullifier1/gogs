@@ -1,4 +1,4 @@
-node("agent01") {
+node(docker { image 'node:16-alpine' }) {
     def app
     def root = tool type: 'go', name: '1.19.4'
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
