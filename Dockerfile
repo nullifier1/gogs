@@ -11,9 +11,6 @@ RUN echo http://mirror1.hs-esslingen.de/pub/Mirrors/alpine/v3.17/main/ > /etc/ap
      shadow \
      socat \
      tzdata \
-     rsync \
-     docker \
-     sudo 
+     rsync 
 ENV GOCACHE /tmp/
-VOLUME /var/run/docker.sock
 
