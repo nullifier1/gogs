@@ -21,7 +21,7 @@ pipeline {
     stage('Build Image') {
       agent any
         steps {
-            sh 'docker build -f build.Dockerfile -t infinityofcore/testgogs:$BUILD_NUMBER .'
+            sh 'docker build -f app.Dockerfile -t infinityofcore/testgogs:$BUILD_NUMBER .'
             sh 'export CONTAINER_NUMBER=$BUILD_NUMBER'
             sh 'echo $BUILD_NUMBER > /home/number'
       }
